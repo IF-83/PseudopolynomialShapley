@@ -6,8 +6,10 @@ class Game:
         self.f = f
 
 
-
-
+class BankruptcyGame(Game):
+    def __init__(self, assets: int, liabilities:'list[int]'):
+        total_liabs = sum(liabilities)
+        super().__init__([assets]+liabilities, lambda x: max([0, x - (total_liabs - assets)]))
 
 
 
@@ -16,8 +18,11 @@ class Game:
 
 if __name__ == "__main__":
     try:
-        tu_game = Game([1,2,3,4], lambda x : x)
-        print(f"Game {tu_game} has been created.")
+        general_game = Game([1,2,3,4], lambda x : x)
+        print(f"Game {general_game} has been created.")
+        bankruptcy_game = BankruptcyGame(9, [2,3,5,7])
+        print(f"Bankruptcygame {bankruptcy_game} has been created.")
+        print(f"Testing the function: f(4) = {bankruptcy_game.f(4)}, and f(10) = {bankruptcy_game.f(10)}.")
     except:
         raise Exception("Unexpected error occurred.")
 
