@@ -20,9 +20,36 @@ def base_polynomials(arr: 'list[int]')-> 'tuple[dict[Polynomial], list[int]]':
     return keys, polynomials
 
 
+def decompose(base_poly, a:int) -> 'list[Polynomial]':
+    """Inverts the last step of the base polynomial calculation. Returns a list of polynomials that can be used to calculate the Shapley value of the player with weight a."""
+    x = Polynomial([Fraction(0),Fraction(1)])
+    P = {}
+    keys, poly = base_poly
+    for k in keys:
+        i = k - a
+        if i in keys:
+            P[k] = (poly[k] - P[i]*x)//(1-x)
+        else:
+            P[k] = poly[k]//(1-x)
+    return P
+
+
+
+
 if __name__ == "__main__":
-    b = base_polynomials([2,3,5,7])
+    weights = [2,3,5,7]
+    b = base_polynomials(weights)
     for k in b[0]:
         print(k, "->", b[1][k])
-    
+    print(".............")
+    for a in weights:
+        print("a=", a)
+        poly = decompose(b, a)
+        for k,p in poly.items():
+            print(k, "->", p)
+        print(".........")
+
+
+
+
 
