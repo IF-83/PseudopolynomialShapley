@@ -3,6 +3,7 @@ import games
 import algorithm
 from fractions import Fraction
 import random
+import brute_force
 
 class ShapleyTest(unittest.TestCase):
 
@@ -29,6 +30,17 @@ class ShapleyTest(unittest.TestCase):
                 g = games.VotingGame([weight]*number_of_players, quota)
                 sh = [Fraction(1,number_of_players)] * number_of_players
                 self.assertEqual(algorithm.Shapley(g), sh)
+    
+    def test_random_voting_games(self):
+        for _ in range(15):
+            with self.subTest():
+                number_of_players = random.randint(5, 15)
+                weights = random.choices([1,2,3,4,5,6,7,8,9], k = number_of_players)
+                quota = random.randint(3, sum(weights)-1)
+                g = games.VotingGame(weights, quota)
+                sh = brute_force.brute_force_voting_game(weights, quota)
+                self.assertEqual(algorithm.Shapley(g), sh)
+
 
 
 
