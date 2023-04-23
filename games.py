@@ -9,7 +9,7 @@ class Game:
 class BankruptcyGame(Game):
     def __init__(self, assets: int, liabilities:'list[int]'):
         total_liabs = sum(liabilities)
-        super().__init__([assets]+liabilities, lambda x: max([0, x - (total_liabs - assets)]))
+        super().__init__(liabilities, lambda x: max([0, x - (total_liabs - assets)]))
 
 
 class VotingGame(Game):
