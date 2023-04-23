@@ -51,9 +51,16 @@ def Shapley(game: 'Game') -> 'list[int]':
 if __name__ == "__main__":
     import games
     l, A = [2,3,5,7], 9
-    wvg = games.BankruptcyGame(A, l)
-    S = Shapley(wvg)
+    bg = games.BankruptcyGame(A, l)
+    S = Shapley(bg)
     for s in S:
-        print(s)
+        print(s, end = ", ")
+    print("")
+    for s in S:
+        print(round(float(s),5), end = ", ")
+    print("") 
+    
+    
+        
 
 
