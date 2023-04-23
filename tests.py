@@ -2,6 +2,7 @@ import unittest
 import games
 import algorithm
 from fractions import Fraction
+import random
 
 class ShapleyTest(unittest.TestCase):
 
@@ -20,7 +21,14 @@ class ShapleyTest(unittest.TestCase):
         sh = [Fraction(1,number_of_players)] * number_of_players 
         self.assertEqual(algorithm.Shapley(g), sh)
 
-
+    def test_random_symmetric_voting_games(self):
+        for _ in range(10):
+            with self.subTest():
+                number_of_players, weight = random.randint(5, 15), random.randint(1,2)
+                quota = random.randint(3, number_of_players * weight-1)
+                g = games.VotingGame([weight]*number_of_players, quota)
+                sh = [Fraction(1,number_of_players)] * number_of_players
+                self.assertEqual(algorithm.Shapley(g), sh)
 
 
 
