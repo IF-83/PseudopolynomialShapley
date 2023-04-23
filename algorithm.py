@@ -43,7 +43,7 @@ def Shapley(game: 'Game') -> 'list[int]':
         p = sum([(game.f(j+a)-game.f(j))*pols[j] for j in pols])
         coefs = p.coef
         deg = len(coefs) - 1
-        sh = sum([Fraction(coefs[i],i+1) for i in range(1,deg+1)])
+        sh = sum([Fraction(coefs[i],i+1) for i in range(deg+1)])
         Sh.append(sh)
     return Sh
 
